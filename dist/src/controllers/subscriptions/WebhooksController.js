@@ -7,7 +7,7 @@ class WebhooksController {
     async handle(req, res) {
         let event = req.body;
         const signature = req.headers["stripe-signature"];
-        let endPointSecret = "whsec_dd1f8ad12433bbe23348eebd5782267975e291bd78d824fc8931597db8b43045";
+        let endPointSecret = process.env.STRIPE_WEBHOOK_SECRET;
         try {
             event = stripe_1.stripe.webhooks.constructEvent(req.body, signature, endPointSecret);
         }

@@ -6,8 +6,13 @@ class AuthUserController {
     async handle(req, res) {
         const { email, password } = req.body;
         const authUserService = new AuthUserService_1.AuthUserService();
-        const session = await authUserService.execute({ email, password });
-        return res.json(session);
+        try {
+            const session = await authUserService.execute({ email, password });
+            return res.json(session);
+        }
+        catch (err) {
+            return res.status(400).json({ error: err.message });
+        }
     }
 }
 exports.AuthUserController = AuthUserController;
